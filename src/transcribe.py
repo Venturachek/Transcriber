@@ -43,7 +43,5 @@ def format_text(text: str) -> str:
         },
         timeout=300
     )
-    print("format_text response:", response.status_code)
-    print("format_text json:", response.json())
 
     return response.json()["response"].strip()
