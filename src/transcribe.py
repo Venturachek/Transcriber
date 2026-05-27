@@ -3,7 +3,7 @@ from pathlib import Path
 import requests
 from src.config import settings
 
-model = WhisperModel("large-v3", device="cpu", compute_type="int8")
+model = WhisperModel("medium", device="cpu", compute_type="int8")
 
 def transcribe_audio(audio_path: Path):
     parts, _ = model.transcribe(str(audio_path), language="uk", beam_size=5)
@@ -41,7 +41,9 @@ def format_text(text: str) -> str:
             "prompt": prompt,
             "stream": False,
         },
-        timeout=120
+        timeout=300
     )
+    print("format_text response:", response.status_code)
+    print("format_text json:", response.json())
 
     return response.json()["response"].strip()

@@ -68,7 +68,7 @@ def upload_result(sheet, text: str, analysis: dict):
 
         all_values = sheet.col_values(1)
         last_row = len([v for v in all_values if v]) + 1
-        sheet.insert_row(row, last_row)
+        sheet.insert_row(row, last_row + 1)
     except Exception as e:
         logging.error(f"Error: {e}", exc_info=True)
         raise e

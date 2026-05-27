@@ -6,6 +6,6 @@ docker run --name ollama_reviewer \
   -v ollama_data:/root/.ollama \
   -d ollama/ollama:latest
 
-docker exec -it ollama_reviewer ollama pull qwen2.5:14b
+docker exec -it ollama_reviewer ollama pull qwen2.5:7b
 
 docker compose --network=newNetwork up --build

@@ -127,4 +127,4 @@ docker compose ps
 
 - Перший запуск довший — faster-whisper завантажує модель `large-v3` (~3GB)
 - Модель кешується у Docker volume `whisper_cache` — наступні запуски швидші
-- Ollama з моделлю `qwen2.5:14b` потребує ~10GB RAM
+- Ollama з моделлю `qwen2.5:7b` потребує ~6GB RAM

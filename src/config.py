@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     OLLAMA_PORT: int
     SPREADSHEET_ID: str
     GOOGLE_CREDENTIALS: str = str(Path(__file__).parent.parent / "credentials.json")
-    OLLAMA_MODEL: str = "qwen2.5:14b"
+    OLLAMA_MODEL: str = "qwen2.5:7b"
 
     @property
     def ollama_url(self):

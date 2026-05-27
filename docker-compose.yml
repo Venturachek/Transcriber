@@ -7,7 +7,7 @@ services:
     command: sh -c "sleep 10 && python src/main.py"
 
     environment:
-      - OLLAMA_HOST=ollama_reviewer
+      - OLLAMA_HOST=ollama
       - OLLAMA_PORT=11434
       - SPREADSHEET_ID=1STfum-kpgO-eRbGfsLQ3C4l9Jhc_EBw8KjpqaOGt2Yo
 
@@ -30,15 +30,19 @@ services:
     image: ollama/ollama:latest
     container_name: ollama_reviewer
     restart: unless-stopped
-
     ports:
       - "11434:11434"
-
     volumes:
       - ollama_data:/root/.ollama
-
     networks:
       - newNetwork
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
 
 volumes:
   whisper_cache:
