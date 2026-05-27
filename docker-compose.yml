@@ -4,6 +4,13 @@ services:
     container_name: audio_transcriber
     restart: unless-stopped
 
+    command: sh -c "sleep 10 && python src/main.py"
+
+    environment:
+      - OLLAMA_HOST=ollama_reviewer
+      - OLLAMA_PORT=11434
+      - SPREADSHEET_ID=1STfum-kpgO-eRbGfsLQ3C4l9Jhc_EBw8KjpqaOGt2Yo
+
     volumes:
       - ./data/audio:/app/data/audio
       - ./data/text:/app/data/text

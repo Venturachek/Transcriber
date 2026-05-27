@@ -65,24 +65,16 @@ def upload_result(sheet, text: str, analysis: dict):
         "",
         analysis.get("коментар", ""),
     ]
-        sheet.append_row(row)
+
+        all_values = sheet.col_values(1)
+        last_row = len([v for v in all_values if v]) + 1
+        sheet.insert_row(row, last_row)
     except Exception as e:
         logging.error(f"Error: {e}", exc_info=True)
         raise e
 
     last_row = len(sheet.get_all_values())
     score = analysis.get("оцінка_менеджера", 0)
-    has_problems = (
-            score < 5 or
-            not analysis.get("дотримання_всіх_інструкцій") or
-            len(analysis.get("пропущені_інструкції", [])) > 3
-    )
-
+    has_problems = score < 4
     if has_problems:
-        sheet.format(f"A{last_row}:N{last_row}", {
-            "backgroundColor": {
-                "red": 1.0,
-                "green": 0.8,
-                "blue": 0.8
-            }
-        })
+        sheet.format(f"R{last_row}", {"backgroundColor":{"red": 1.0, "green": 0.8, "blue": 0.8}})

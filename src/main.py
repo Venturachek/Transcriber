@@ -25,8 +25,9 @@ def main():
 
         analyze = analyze_call(text)
 
+        print("start upload")
         upload_result(sheet, text, analyze)
-
+        print("end upload")
 
 if __name__ == "__main__":
     main()
