@@ -4,7 +4,7 @@ from google.oauth2.service_account import Credentials
 from src.config import settings
 
 logging.basicConfig(
-    level=logging.INFO
+    level=logging.ERROR
 )
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -42,8 +42,8 @@ def sheet_connect():
 
 def upload_result(sheet, text: str, analysis: dict):
     logging.info("Загрузка данных")
-    logging.debug(f"Анализ {analysis}")
-    row = [
+    try:
+        row = [
         text,
         "",
         "",
@@ -65,7 +65,10 @@ def upload_result(sheet, text: str, analysis: dict):
         "",
         analysis.get("коментар", ""),
     ]
-    sheet.append_row(row)
+        sheet.append_row(row)
+    except Exception as e:
+        logging.error(f"Error: {e}", exc_info=True)
+        raise e
 
     last_row = len(sheet.get_all_values())
     score = analysis.get("оцінка_менеджера", 0)
