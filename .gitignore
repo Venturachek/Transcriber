@@ -1,0 +1,5 @@
+.env
+.venv
+.data
+.idea
+credentials.json

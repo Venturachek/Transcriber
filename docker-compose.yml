@@ -1,0 +1,42 @@
+services:
+  transcriber:
+    build: .
+    container_name: audio_transcriber
+    restart: unless-stopped
+
+    volumes:
+      - ./data/audio:/app/data/audio
+      - ./data/text:/app/data/text
+      - ./credentials.json:/app/credentials.json:ro
+      - whisper_cache:/root/.cache/huggingface
+
+    env_file:
+      - .env
+
+    networks:
+      - newNetwork
+
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama_reviewer
+    restart: unless-stopped
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - ollama_data:/root/.ollama
+
+    networks:
+      - newNetwork
+
+volumes:
+  whisper_cache:
+  ollama_data:
+
+networks:
+  newNetwork:
+    external: true
