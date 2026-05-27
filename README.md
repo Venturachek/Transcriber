@@ -32,6 +32,7 @@ Transcriber/
 │   └── text/            # Результати транскрибації
 ├── credentials.json     # Google Service Account (не комітити!)
 ├── .env                 # Змінні середовища (не комітити!)
+├── .env.example         # Шаблон змінних середовища
 ├── docker-compose.yml
 └── Dockerfile
 ```
@@ -51,13 +52,9 @@ cd Transcriber
 mkdir -p data/audio data/text
 ```
 
-### 3. Налаштувати змінні середовища
+### 3. Створити файл .env
 
-```bash
-cp .env.example .env
-```
-
-Заповни `.env`:
+Створи файл `.env` у корені проєкту та додай наступні дані:
 
 ```env
 OLLAMA_HOST=ollama_reviewer
@@ -93,9 +90,13 @@ docker compose up --build -d
 docker exec -it ollama_reviewer ollama pull qwen2.5:14b
 ```
 
-### 8. Додати аудіофайли
+### 8. Додати аудіофайли та запустити обробку
 
-Скопіюй `.mp3` або `.wav` файли в папку `data/audio/` — скрипт обробить їх автоматично.
+Скопіюй `.mp3` або `.wav` файли в папку `data/audio/` та запусти вручну:
+
+```bash
+docker exec -it audio_transcriber python src/main.py
+```
 
 ## Моніторинг
 
